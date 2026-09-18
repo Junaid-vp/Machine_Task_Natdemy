@@ -1,0 +1,120 @@
+import { useState, useEffect, useMemo } from "react";
+import { useSearchParams } from "react-router-dom";
+import { useDebounce } from "./useDebounce";
+import propertiesData from "../data/properties.json";
+
+export const usePropertyFilters = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  // 1. Initialize State
+  const [search, setSearch] = useState(searchParams.get("city") || "");
+  const [purpose, setPurpose] = useState(searchParams.get("purpose") || "");
+  const [type, setType] = useState(searchParams.get("type") || "");
+  const [minPrice, setMinPrice] = useState(searchParams.get("min_price") || "");
+  const [maxPrice, setMaxPrice] = useState(searchParams.get("max_price") || "");
+  const [bedrooms, setBedrooms] = useState(searchParams.get("bedrooms") || "");
+  const [sort, setSort] = useState(searchParams.get("sort") || "newest");
+
+  // 2. Debounce ONLY the search term
+  const debouncedSearch = useDebounce(search, 400);
+
+  // 3. Sync to URL Parameters
+  useEffect(() => {
+    const params = new URLSearchParams();
+
+    if (debouncedSearch.trim()) params.set("city", debouncedSearch.trim());
+    if (purpose) params.set("purpose", purpose);
+    if (type) params.set("type", type);
+    if (minPrice) params.set("min_price", minPrice);
+    if (maxPrice) params.set("max_price", maxPrice);
+    if (bedrooms) params.set("bedrooms", bedrooms);
+    if (sort && sort !== "newest") params.set("sort", sort);
+
+    setSearchParams(params);
+  }, [
+    debouncedSearch,
+    purpose,
+    type,
+    minPrice,
+    maxPrice,
+    bedrooms,
+    sort,
+    setSearchParams,
+  ]);
+
+  // 4. Filter Properties
+  const filteredProperties = useMemo(() => {
+    let result = [...propertiesData];
+
+    // Use debounced search for filtering
+    if (debouncedSearch.trim()) {
+      const query = debouncedSearch.trim().toLowerCase();
+      result = result.filter(
+        (p) =>
+          p.location.city.toLowerCase().includes(query) ||
+          p.location.area.toLowerCase().includes(query)
+      );
+    }
+
+    if (purpose) result = result.filter((p) => p.purpose === purpose);
+    if (type) result = result.filter((p) => p.type === type);
+    if (minPrice) result = result.filter((p) => p.price >= Number(minPrice));
+    if (maxPrice) result = result.filter((p) => p.price <= Number(maxPrice));
+    if (bedrooms) result = result.filter((p) => p.bedrooms >= Number(bedrooms));
+
+    // Sort
+    if (sort === "newest") {
+      result.sort((a, b) => new Date(b.postedAt) - new Date(a.postedAt));
+    } else if (sort === "price_low") {
+      result.sort((a, b) => a.price - b.price);
+    } else if (sort === "price_high") {
+      result.sort((a, b) => b.price - a.price);
+    }
+
+    return result;
+  }, [debouncedSearch, purpose, type, minPrice, maxPrice, bedrooms, sort]);
+
+  // 5. Helper Functions
+  const clearFilters = () => {
+    setSearch("");
+    setPurpose("");
+    setType("");
+    setMinPrice("");
+    setMaxPrice("");
+    setBedrooms("");
+    setSort("newest");
+  };
+
+  const hasFilters =
+    search ||
+    purpose ||
+    type ||
+    minPrice ||
+    maxPrice ||
+    bedrooms ||
+    sort !== "newest";
+
+  return {
+    filters: {
+      search,
+      purpose,
+      type,
+      minPrice,
+      maxPrice,
+      bedrooms,
+      sort,
+    },
+    setters: {
+      setSearch,
+      setPurpose,
+      setType,
+      setMinPrice,
+      setMaxPrice,
+      setBedrooms,
+      setSort,
+    },
+    filteredProperties,
+    clearFilters,
+    hasFilters,
+  };
+};
