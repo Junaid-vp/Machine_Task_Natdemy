@@ -1,14 +1,16 @@
 import { Outlet } from "react-router-dom";
-import properties from "./data/properties.json";
- console.log(properties);
+import Navbar from "./components/layout/Navbar";
+import Footer from "./components/layout/Footer";
+
 const App = () => {
   return (
-    <>
-   
-
-
-      <Outlet />
-    </>
+    <div className="flex min-h-screen flex-col bg-[var(--background)]">
+      <Navbar />
+      <main className="flex-1">
+        <Outlet />
+      </main>
+      <Footer />
+    </div>
   );
 };
 

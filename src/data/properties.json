@@ -56,7 +56,8 @@
       "type": "youtube",
       "url": "https://www.youtube.com/embed/tgbNymZ7vqY"
     },
-    "postedAt": "2026-09-15"
+    "postedAt": "2026-09-15",
+    "featured": true
   },
   {
     "id": "NAT-002",
@@ -115,7 +116,8 @@
       "type": "mp4",
       "url": "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4"
     },
-    "postedAt": "2026-09-12"
+    "postedAt": "2026-09-12",
+    "featured": false
   },
   {
     "id": "NAT-003",
@@ -170,7 +172,8 @@
       }
     ],
     "video": null,
-    "postedAt": "2026-09-10"
+    "postedAt": "2026-09-10",
+    "featured": true
   },
   {
     "id": "NAT-004",
@@ -225,7 +228,8 @@
       }
     ],
     "video": null,
-    "postedAt": "2026-09-08"
+    "postedAt": "2026-09-08",
+    "featured": false
   },
   {
     "id": "NAT-005",
@@ -284,7 +288,8 @@
       "type": "youtube",
       "url": "https://www.youtube.com/embed/tgbNymZ7vqY"
     },
-    "postedAt": "2026-09-06"
+    "postedAt": "2026-09-06",
+    "featured": true
   },
   {
     "id": "NAT-006",
@@ -337,7 +342,8 @@
       }
     ],
     "video": null,
-    "postedAt": "2026-09-04"
+    "postedAt": "2026-09-04",
+    "featured": false
   },
   {
     "id": "NAT-007",
@@ -393,7 +399,8 @@
       }
     ],
     "video": null,
-    "postedAt": "2026-09-02"
+    "postedAt": "2026-09-02",
+    "featured": true
   },
   {
     "id": "NAT-008",
@@ -452,7 +459,8 @@
       "type": "mp4",
       "url": "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4"
     },
-    "postedAt": "2026-08-30"
+    "postedAt": "2026-08-30",
+    "featured": false
   },
   {
     "id": "NAT-009",
@@ -507,7 +515,8 @@
       }
     ],
     "video": null,
-    "postedAt": "2026-08-27"
+    "postedAt": "2026-08-27",
+    "featured": true
   },
   {
     "id": "NAT-010",
@@ -560,7 +569,8 @@
       }
     ],
     "video": null,
-    "postedAt": "2026-08-25"
+    "postedAt": "2026-08-25",
+    "featured": false
   },
   {
     "id": "NAT-011",
@@ -614,7 +624,8 @@
       }
     ],
     "video": null,
-    "postedAt": "2026-08-22"
+    "postedAt": "2026-08-22",
+    "featured": true
   },
   {
     "id": "NAT-012",
@@ -673,6 +684,7 @@
       "type": "mp4",
       "url": "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4"
     },
-    "postedAt": "2026-08-20"
+    "postedAt": "2026-08-20",
+    "featured": false
   }
 ]
