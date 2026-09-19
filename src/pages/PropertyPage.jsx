@@ -11,7 +11,7 @@ import {
   MapPin,
   CheckCircle2,
 } from "lucide-react";
-import properties from "../data/properties.json";
+import { useProperties } from "../context/PropertyContext";
 
 import {
   formatLocation,
@@ -29,6 +29,7 @@ import NotFound from "./NotFound";
 
 const PropertyPage = () => {
   const { slug } = useParams();
+  const { properties } = useProperties();
 
   // Scroll to top when navigating to this page
   useEffect(() => {

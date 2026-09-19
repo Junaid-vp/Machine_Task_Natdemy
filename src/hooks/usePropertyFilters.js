@@ -1,9 +1,10 @@
 import { useState, useEffect, useMemo } from "react";
 import { useSearchParams } from "react-router-dom";
 import { useDebounce } from "./useDebounce";
-import propertiesData from "../data/properties.json";
+import { useProperties } from "../context/PropertyContext";
 
 export const usePropertyFilters = () => {
+  const { properties } = useProperties();
   const [searchParams, setSearchParams] = useSearchParams();
 
   // 1. Initialize State
@@ -46,7 +47,7 @@ export const usePropertyFilters = () => {
 
   // 4. Filter Properties
   const filteredProperties = useMemo(() => {
-    let result = [...propertiesData];
+    let result = [...properties];
 
     // Use debounced search for filtering
     if (debouncedSearch.trim()) {
@@ -74,7 +75,7 @@ export const usePropertyFilters = () => {
     }
 
     return result;
-  }, [debouncedSearch, purpose, type, debouncedMinPrice, debouncedMaxPrice, bedrooms, sort]);
+  }, [debouncedSearch, purpose, type, debouncedMinPrice, debouncedMaxPrice, bedrooms, sort, properties]);
 
   // 5. Helper Functions
   const clearFilters = () => {

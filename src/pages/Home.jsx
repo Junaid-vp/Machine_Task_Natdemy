@@ -2,13 +2,15 @@ import { useState } from "react";
 import { MapPin, Search, ArrowRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
-import properties from "../data/properties.json";
 import PropertyCard from "../components/property/PropertyCard";
+import { useProperties } from "../context/PropertyContext";
 
 const Home = () => {
   const navigate = useNavigate();
 
   const [search, setSearch] = useState("");
+
+  const { properties } = useProperties();
 
   const featuredProperties = properties.filter(
     (property) => property.featured
