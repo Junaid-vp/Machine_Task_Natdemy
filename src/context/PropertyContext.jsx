@@ -9,7 +9,7 @@ import propertiesData from "../data/properties.json";
 
 const PropertyContext = createContext(null);
 
-const STORAGE_KEY = "natdemy-properties";
+const STORAGE_KEY = "Properties_List";
 
 export function PropertyProvider({ children }) {
   const [properties, setProperties] = useState(() => {
