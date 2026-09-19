@@ -5,8 +5,21 @@ import PropertyCardSkeletons from "../components/property/PropertyCardSkeletons"
 import { usePropertyFilters } from "../hooks/usePropertyFilters";
 
 const Properties = () => {
-  // Skeleton loader is ready for future API integration (no fake delays)
-  const [isLoading, setIsLoading] = useState(false);
+  // Always start at the top of the page
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  // Fake loading delay to demonstrate skeleton loaders
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    // Show skeletons for 600ms on mount
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 600);
+    return () => clearTimeout(timer);
+  }, []);
   const {
     filters: { search, purpose, type, minPrice, maxPrice, bedrooms, sort },
     setters: {

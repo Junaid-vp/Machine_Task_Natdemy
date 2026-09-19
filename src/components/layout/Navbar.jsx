@@ -49,6 +49,10 @@ const Navbar = () => {
           <NavLink to="/properties" className={getNavLinkClass}>
             Properties
           </NavLink>
+
+          <NavLink to="/admin" className={getNavLinkClass}>
+            Admin <span className="text-[10px] opacity-70">[just for route]</span>
+          </NavLink>
         </div>
 
         <div className="hidden md:flex">
@@ -105,6 +109,16 @@ const Navbar = () => {
               className={getNavLinkClass}
             >
               <span className="block py-3">Properties</span>
+            </NavLink>
+
+            <NavLink
+              to="/admin"
+              onClick={closeMenu}
+              className={getNavLinkClass}
+            >
+              <span className="block py-3">
+                Admin <span className="text-[10px] opacity-70">[just for route]</span>
+              </span>
             </NavLink>
           </div>
         </div>

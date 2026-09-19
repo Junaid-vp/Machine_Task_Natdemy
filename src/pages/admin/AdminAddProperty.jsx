@@ -83,8 +83,7 @@ export default function AdminAddProperty() {
       // Process images to Base64 for localStorage persistence
       const processedPhotos = await Promise.all(
         images
-          .slice()
-          .sort((a, b) => a.order - b.order)
+          .toSorted((a, b) => a.order - b.order)
           .map(async (image) => {
             const base64Url = await convertToBase64(image.file);
             return {

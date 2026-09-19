@@ -2,7 +2,7 @@ import { X, Star } from "lucide-react";
 
 export default function ImagePreview({ images, setImages }) {
   // Sort images by order number
-  const sortedImages = [...images].sort(
+  const sortedImages = images.toSorted(
     (a, b) => a.order - b.order
   );
 
