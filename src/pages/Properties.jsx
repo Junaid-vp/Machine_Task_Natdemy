@@ -1,8 +1,12 @@
+import { useState, useEffect } from "react";
 import { Search, SlidersHorizontal, X } from "lucide-react";
 import PropertyCard from "../components/property/PropertyCard";
+import PropertyCardSkeletons from "../components/property/PropertyCardSkeletons";
 import { usePropertyFilters } from "../hooks/usePropertyFilters";
 
 const Properties = () => {
+  // Skeleton loader is ready for future API integration (no fake delays)
+  const [isLoading, setIsLoading] = useState(false);
   const {
     filters: { search, purpose, type, minPrice, maxPrice, bedrooms, sort },
     setters: {
@@ -175,37 +179,41 @@ const Properties = () => {
           </div>
         </div>
 
-        {/* Properties */}
-        {filteredProperties.length > 0 ? (
-          <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {filteredProperties.map((property) => (
-              <PropertyCard
-                key={property.id}
-                property={property}
-              />
-            ))}
-          </div>
-        ) : (
-          /* Empty State */
-          <div className="mt-8 rounded-2xl border border-[var(--border)] px-6 py-20 text-center">
-            <h2 className="text-xl font-semibold text-[var(--foreground)]">
-              No properties found
-            </h2>
-
-            <p className="mx-auto mt-2 max-w-md text-sm leading-6 text-[var(--muted)]">
-              Try changing your search or removing some
-              filters to see more properties.
-            </p>
-
-            <button
-              type="button"
-              onClick={clearFilters}
-              className="mt-6 inline-flex items-center justify-center rounded-xl bg-[var(--foreground)] px-5 py-3 text-sm font-semibold text-[var(--background)] transition-opacity hover:opacity-80"
-            >
-              Clear filters
-            </button>
-          </div>
-        )}
+        {/* Properties Grid with Loading Skeletons */}
+        <div className="mt-8">
+          {isLoading ? (
+            <PropertyCardSkeletons count={6} />
+          ) : filteredProperties.length > 0 ? (
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {filteredProperties.map((property) => (
+                <PropertyCard
+                  key={property.id}
+                  property={property}
+                />
+              ))}
+            </div>
+          ) : (
+            /* Empty State */
+            <div className="rounded-2xl border border-[var(--border)] px-6 py-20 text-center">
+              <h2 className="text-xl font-semibold text-[var(--foreground)]">
+                No properties found
+              </h2>
+  
+              <p className="mx-auto mt-2 max-w-md text-sm leading-6 text-[var(--muted)]">
+                Try changing your search or removing some
+                filters to see more properties.
+              </p>
+  
+              <button
+                type="button"
+                onClick={clearFilters}
+                className="mt-6 inline-flex items-center justify-center rounded-xl bg-[var(--foreground)] px-5 py-3 text-sm font-semibold text-[var(--background)] transition-opacity hover:opacity-80"
+              >
+                Clear filters
+              </button>
+            </div>
+          )}
+        </div>
       </div>
     </section>
   );

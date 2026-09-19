@@ -25,6 +25,8 @@ import PropertyVideo from "../components/property/PropertyVideo";
 import EnquiryForm from "../components/property/EnquiryForm";
 import MobileStickyContact from "../components/property/MobileStickyContact";
 
+import NotFound from "./NotFound";
+
 const PropertyPage = () => {
   const { slug } = useParams();
 
@@ -38,27 +40,7 @@ const PropertyPage = () => {
 
   // Handle invalid property slug
   if (!property) {
-    return (
-      <main className="flex min-h-[70vh] items-center justify-center bg-[var(--background)] px-4 text-[var(--foreground)]">
-        <div className="text-center">
-          <h1 className="mb-3 text-3xl font-bold md:text-4xl">
-            Property Not Found
-          </h1>
-
-          <p className="mb-6 text-[var(--muted)]">
-            The property you're looking for doesn't exist or may have been
-            removed.
-          </p>
-
-          <Link
-            to="/properties"
-            className="inline-flex items-center justify-center rounded-lg bg-[var(--foreground)] px-6 py-3 font-medium text-[var(--background)] transition hover:opacity-80"
-          >
-            Browse Properties
-          </Link>
-        </div>
-      </main>
-    );
+    return <NotFound />;
   }
 
   // Similar properties

@@ -69,6 +69,9 @@ const Lightbox = ({ photos, activeIndex, setActiveIndex, title }) => {
       <img
         src={photos[activeIndex]?.url}
         alt={`${title} - Image ${activeIndex + 1}`}
+        loading="eager"
+        fetchPriority="high"
+        decoding="async"
         onClick={(e) => e.stopPropagation()}
         className="max-h-[80vh] max-w-full rounded-lg object-contain"
       />
@@ -99,6 +102,9 @@ const PropertyGallery = ({ photos = [], title = "Property" }) => {
           <img
             src={photos[0]?.url}
             alt={`${title} - Image 1`}
+            loading="eager"
+            fetchPriority="high"
+            decoding="async"
             className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
           />
         </button>
@@ -114,6 +120,7 @@ const PropertyGallery = ({ photos = [], title = "Property" }) => {
               src={photo.url}
               alt={`${title} - Image ${index + 2}`}
               loading="lazy"
+              decoding="async"
               className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
             />
           </button>

@@ -4,6 +4,7 @@ import App from "../App";
 import Home from "../pages/Home";
 import Properties from "../pages/Properties";
 import PropertyPage from "../pages/PropertyPage";
+import NotFound from "../pages/NotFound";
 
 const router = createBrowserRouter([
   {
@@ -22,11 +23,11 @@ const router = createBrowserRouter([
         path: "property/:slug",
         element: <PropertyPage />,
       },
+      {
+        path: "*",
+        element: <NotFound />,
+      },
     ],
-  },
-  {
-    path: "*",
-    element: <div>Page Not Found</div>,
   },
 ]);
 

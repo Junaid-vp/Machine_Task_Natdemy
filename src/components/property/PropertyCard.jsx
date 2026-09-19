@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import {
   Bath,
@@ -15,6 +16,7 @@ import {
 
 const PropertyCard = ({ property }) => {
   const coverPhoto = getCoverPhoto(property);
+  const [imageLoaded, setImageLoaded] = useState(false);
 
   return (
     <Link 
@@ -24,12 +26,20 @@ const PropertyCard = ({ property }) => {
       <article>
         {/* Property Image */}
         <div className="relative block aspect-video overflow-hidden bg-[var(--border)]">
+        {!imageLoaded && coverPhoto && (
+          <div className="absolute inset-0 animate-pulse bg-neutral-200 dark:bg-neutral-800" />
+        )}
         {coverPhoto ? (
           <img
             src={coverPhoto.url}
             alt={property.title}
             loading="lazy"
-            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+            decoding="async"
+            onLoad={() => setImageLoaded(true)}
+            onError={() => setImageLoaded(true)}
+            className={`h-full w-full object-cover transition-all duration-500 ${
+              imageLoaded ? "opacity-100" : "opacity-0"
+            } group-hover:scale-105`}
           />
         ) : (
           <div className="flex h-full items-center justify-center text-sm text-[var(--muted)]">
