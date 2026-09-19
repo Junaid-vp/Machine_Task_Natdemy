@@ -15,8 +15,10 @@ export const usePropertyFilters = () => {
   const [bedrooms, setBedrooms] = useState(searchParams.get("bedrooms") || "");
   const [sort, setSort] = useState(searchParams.get("sort") || "newest");
 
-  // 2. Debounce ONLY the search term
+  // 2. Debounce text/number inputs
   const debouncedSearch = useDebounce(search, 400);
+  const debouncedMinPrice = useDebounce(minPrice, 400);
+  const debouncedMaxPrice = useDebounce(maxPrice, 400);
 
   // 3. Sync to URL Parameters
   useEffect(() => {
@@ -25,8 +27,8 @@ export const usePropertyFilters = () => {
     if (debouncedSearch.trim()) params.set("city", debouncedSearch.trim());
     if (purpose) params.set("purpose", purpose);
     if (type) params.set("type", type);
-    if (minPrice) params.set("min_price", minPrice);
-    if (maxPrice) params.set("max_price", maxPrice);
+    if (debouncedMinPrice) params.set("min_price", debouncedMinPrice);
+    if (debouncedMaxPrice) params.set("max_price", debouncedMaxPrice);
     if (bedrooms) params.set("bedrooms", bedrooms);
     if (sort && sort !== "newest") params.set("sort", sort);
 
@@ -35,8 +37,8 @@ export const usePropertyFilters = () => {
     debouncedSearch,
     purpose,
     type,
-    minPrice,
-    maxPrice,
+    debouncedMinPrice,
+    debouncedMaxPrice,
     bedrooms,
     sort,
     setSearchParams,
@@ -58,8 +60,8 @@ export const usePropertyFilters = () => {
 
     if (purpose) result = result.filter((p) => p.purpose === purpose);
     if (type) result = result.filter((p) => p.type === type);
-    if (minPrice) result = result.filter((p) => p.price >= Number(minPrice));
-    if (maxPrice) result = result.filter((p) => p.price <= Number(maxPrice));
+    if (debouncedMinPrice) result = result.filter((p) => p.price >= Number(debouncedMinPrice));
+    if (debouncedMaxPrice) result = result.filter((p) => p.price <= Number(debouncedMaxPrice));
     if (bedrooms) result = result.filter((p) => p.bedrooms >= Number(bedrooms));
 
     // Sort
@@ -72,7 +74,7 @@ export const usePropertyFilters = () => {
     }
 
     return result;
-  }, [debouncedSearch, purpose, type, minPrice, maxPrice, bedrooms, sort]);
+  }, [debouncedSearch, purpose, type, debouncedMinPrice, debouncedMaxPrice, bedrooms, sort]);
 
   // 5. Helper Functions
   const clearFilters = () => {

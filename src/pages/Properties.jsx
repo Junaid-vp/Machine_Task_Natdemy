@@ -21,30 +21,30 @@ const Properties = () => {
 
   return (
     <section className="min-h-screen bg-[var(--background)]">
-      <div className="mx-auto max-w-5xl px-5 py-10 sm:px-6 lg:px-8 lg:py-14">
+      <div className="mx-auto max-w-5xl px-5 py-6 sm:px-6 lg:px-8 lg:py-8">
 
         {/* Page Header */}
-        <div className="mb-8">
-          <p className="mb-2 text-xs font-semibold uppercase tracking-[0.18em] text-[var(--muted)]">
+        <div className="mb-4 flex flex-wrap items-baseline gap-2 sm:gap-3">
+          <span className="shrink-0 text-xs font-semibold uppercase tracking-[0.18em] text-[var(--muted)]">
             Explore
-          </p>
+          </span>
 
-          <h1 className="text-3xl font-bold tracking-tight text-[var(--foreground)] sm:text-4xl">
+          <h1 className="shrink-0 text-2xl font-bold tracking-tight text-[var(--foreground)] sm:text-3xl">
             Properties
           </h1>
 
-          <p className="mt-3 text-sm text-[var(--muted)]">
+          <span className="text-sm text-[var(--muted)]">
             Find a property that matches your needs.
-          </p>
+          </span>
         </div>
 
-        {/* Filters */}
-        <div className="rounded-2xl border border-[var(--border)] bg-[var(--card)] p-4 sm:p-5">
-
+        {/* Filter Box */}
+        <div className="w-full rounded-2xl border border-[var(--border)] bg-[var(--card)] p-4">
+          
           {/* Search */}
-          <div className="flex items-center gap-3 rounded-xl border border-[var(--border)] px-4">
+          <div className="mb-3 flex items-center gap-2 rounded-xl border border-[var(--border)] px-3">
             <Search
-              size={18}
+              size={16}
               className="shrink-0 text-[var(--muted)]"
             />
 
@@ -55,12 +55,12 @@ const Properties = () => {
                 setSearch(event.target.value)
               }
               placeholder="Search by city or area..."
-              className="h-12 w-full bg-transparent text-sm text-[var(--foreground)] outline-none placeholder:text-[var(--muted)]"
+              className="h-10 w-full bg-transparent text-sm text-[var(--foreground)] outline-none placeholder:text-[var(--muted)]"
             />
           </div>
 
-          {/* Filter Controls */}
-          <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
+          {/* Filter Controls Grid */}
+          <div className="grid gap-2 sm:grid-cols-2 md:grid-cols-3">
 
             {/* Purpose */}
             <select
@@ -68,7 +68,7 @@ const Properties = () => {
               onChange={(event) =>
                 setPurpose(event.target.value)
               }
-              className="h-12 rounded-xl border border-[var(--border)] bg-[var(--card)] px-3 text-sm text-[var(--foreground)] outline-none"
+              className="h-10 rounded-xl border border-[var(--border)] bg-[var(--card)] px-3 text-sm text-[var(--foreground)] outline-none"
             >
               <option value="">Buy or Rent</option>
               <option value="Buy">Buy</option>
@@ -81,13 +81,29 @@ const Properties = () => {
               onChange={(event) =>
                 setType(event.target.value)
               }
-              className="h-12 rounded-xl border border-[var(--border)] bg-[var(--card)] px-3 text-sm text-[var(--foreground)] outline-none"
+              className="h-10 rounded-xl border border-[var(--border)] bg-[var(--card)] px-3 text-sm text-[var(--foreground)] outline-none"
             >
               <option value="">All Types</option>
               <option value="Apartment">Apartment</option>
               <option value="Villa">Villa</option>
               <option value="House">House</option>
               <option value="Land">Land</option>
+            </select>
+
+            {/* Bedrooms */}
+            <select
+              value={bedrooms}
+              onChange={(event) =>
+                setBedrooms(event.target.value)
+              }
+              className="h-10 rounded-xl border border-[var(--border)] bg-[var(--card)] px-3 text-sm text-[var(--foreground)] outline-none"
+            >
+              <option value="">Any Bedrooms</option>
+              <option value="1">1+ Bedroom</option>
+              <option value="2">2+ Bedrooms</option>
+              <option value="3">3+ Bedrooms</option>
+              <option value="4">4+ Bedrooms</option>
+              <option value="5">5+ Bedrooms</option>
             </select>
 
             {/* Minimum Price */}
@@ -98,7 +114,7 @@ const Properties = () => {
                 setMinPrice(event.target.value)
               }
               placeholder="Min price"
-              className="h-12 rounded-xl border border-[var(--border)] bg-[var(--card)] px-3 text-sm text-[var(--foreground)] outline-none placeholder:text-[var(--muted)]"
+              className="h-10 rounded-xl border border-[var(--border)] bg-[var(--card)] px-3 text-sm text-[var(--foreground)] outline-none placeholder:text-[var(--muted)]"
             />
 
             {/* Maximum Price */}
@@ -109,33 +125,33 @@ const Properties = () => {
                 setMaxPrice(event.target.value)
               }
               placeholder="Max price"
-              className="h-12 rounded-xl border border-[var(--border)] bg-[var(--card)] px-3 text-sm text-[var(--foreground)] outline-none placeholder:text-[var(--muted)]"
+              className="h-10 rounded-xl border border-[var(--border)] bg-[var(--card)] px-3 text-sm text-[var(--foreground)] outline-none placeholder:text-[var(--muted)]"
             />
 
-            {/* Bedrooms */}
+            {/* Sort (Moved here to be parallel to Max Price) */}
             <select
-              value={bedrooms}
+              value={sort}
               onChange={(event) =>
-                setBedrooms(event.target.value)
+                setSort(event.target.value)
               }
-              className="h-12 rounded-xl border border-[var(--border)] bg-[var(--card)] px-3 text-sm text-[var(--foreground)] outline-none"
+              className="h-10 rounded-xl border border-[var(--border)] bg-[var(--card)] px-3 text-sm text-[var(--foreground)] outline-none"
             >
-              <option value="">Any Bedrooms</option>
-              <option value="1">1+ Bedroom</option>
-              <option value="2">2+ Bedrooms</option>
-              <option value="3">3+ Bedrooms</option>
-              <option value="4">4+ Bedrooms</option>
-              <option value="5">5+ Bedrooms</option>
+              <option value="newest">Newest</option>
+              <option value="price_low">
+                Price: Low to High
+              </option>
+              <option value="price_high">
+                Price: High to Low
+              </option>
             </select>
           </div>
 
-          {/* Bottom Filter Row */}
+          {/* Bottom Row */}
           <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-
-            {/* Active Filters */}
-            <div className="flex items-center gap-2 text-sm text-[var(--muted)]">
-              <SlidersHorizontal size={16} />
-
+            
+            {/* Properties Found Count */}
+            <div className="flex items-center gap-2 text-xs text-[var(--muted)]">
+              <SlidersHorizontal size={14} />
               <span>
                 {filteredProperties.length}{" "}
                 {filteredProperties.length === 1
@@ -145,37 +161,17 @@ const Properties = () => {
               </span>
             </div>
 
-            <div className="flex flex-col gap-3 sm:flex-row">
-
-              {/* Sort */}
-              <select
-                value={sort}
-                onChange={(event) =>
-                  setSort(event.target.value)
-                }
-                className="h-11 rounded-xl border border-[var(--border)] bg-[var(--card)] px-3 text-sm text-[var(--foreground)] outline-none"
+            {/* Clear Filters */}
+            {hasFilters && (
+              <button
+                type="button"
+                onClick={clearFilters}
+                className="inline-flex h-9 items-center justify-center gap-1.5 rounded-lg border border-[var(--border)] px-3 text-xs font-medium text-[var(--foreground)] transition-colors hover:bg-[var(--foreground)] hover:text-[var(--background)]"
               >
-                <option value="newest">Newest</option>
-                <option value="price_low">
-                  Price: Low to High
-                </option>
-                <option value="price_high">
-                  Price: High to Low
-                </option>
-              </select>
-
-              {/* Clear Filters */}
-              {hasFilters && (
-                <button
-                  type="button"
-                  onClick={clearFilters}
-                  className="inline-flex h-11 items-center justify-center gap-2 rounded-xl border border-[var(--border)] px-4 text-sm font-medium text-[var(--foreground)] transition-colors hover:bg-[var(--foreground)] hover:text-[var(--background)]"
-                >
-                  <X size={15} />
-                  Clear filters
-                </button>
-              )}
-            </div>
+                <X size={14} />
+                Clear filters
+              </button>
+            )}
           </div>
         </div>
 

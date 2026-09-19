@@ -3,6 +3,7 @@ import { createBrowserRouter } from "react-router-dom";
 import App from "../App";
 import Home from "../pages/Home";
 import Properties from "../pages/Properties";
+import PropertyPage from "../pages/PropertyPage";
 
 const router = createBrowserRouter([
   {
@@ -19,7 +20,7 @@ const router = createBrowserRouter([
       },
       {
         path: "property/:slug",
-        element: <div>Property Details</div>,
+        element: <PropertyPage />,
       },
     ],
   },
