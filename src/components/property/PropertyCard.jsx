@@ -17,12 +17,13 @@ const PropertyCard = ({ property }) => {
   const coverPhoto = getCoverPhoto(property);
 
   return (
-    <article className="group overflow-hidden rounded-2xl border border-[var(--border)] bg-[var(--card)] transition-shadow duration-300 hover:shadow-lg">
-      {/* Property Image */}
-      <Link
-        to={`/property/${property.slug}`}
-        className="relative block aspect-video overflow-hidden bg-[var(--border)]"
-      >
+    <Link 
+      to={`/property/${property.slug}`}
+      className="group block overflow-hidden rounded-2xl border border-[var(--border)] bg-[var(--card)] transition-shadow duration-300 hover:shadow-lg"
+    >
+      <article>
+        {/* Property Image */}
+        <div className="relative block aspect-video overflow-hidden bg-[var(--border)]">
         {coverPhoto ? (
           <img
             src={coverPhoto.url}
@@ -48,7 +49,7 @@ const PropertyCard = ({ property }) => {
             Video
           </span>
         )}
-      </Link>
+        </div>
 
       {/* Property Information */}
       <div className="p-4">
@@ -59,14 +60,11 @@ const PropertyCard = ({ property }) => {
         </p>
 
         {/* Title */}
-        <Link
-          to={`/property/${property.slug}`}
-          className="mt-1.5 block"
-        >
+        <div className="mt-1.5 block">
           <h3 className="line-clamp-1 text-base font-semibold text-[var(--foreground)] transition-opacity group-hover:opacity-70">
             {property.title}
           </h3>
-        </Link>
+        </div>
 
         {/* Price */}
         <p className="mt-1.5 text-lg font-bold text-[var(--foreground)]">
@@ -95,7 +93,8 @@ const PropertyCard = ({ property }) => {
           </span>
         </div>
       </div>
-    </article>
+      </article>
+    </Link>
   );
 };
 
