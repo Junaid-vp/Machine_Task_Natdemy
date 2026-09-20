@@ -23,17 +23,30 @@ export const usePropertyFilters = () => {
 
   // 3. Sync to URL Parameters
   useEffect(() => {
-    const params = new URLSearchParams();
+    setSearchParams((params) => {
+      if (debouncedSearch.trim()) params.set("city", debouncedSearch.trim());
+      else params.delete("city");
 
-    if (debouncedSearch.trim()) params.set("city", debouncedSearch.trim());
-    if (purpose) params.set("purpose", purpose);
-    if (type) params.set("type", type);
-    if (debouncedMinPrice) params.set("min_price", debouncedMinPrice);
-    if (debouncedMaxPrice) params.set("max_price", debouncedMaxPrice);
-    if (bedrooms) params.set("bedrooms", bedrooms);
-    if (sort && sort !== "newest") params.set("sort", sort);
+      if (purpose) params.set("purpose", purpose);
+      else params.delete("purpose");
 
-    setSearchParams(params);
+      if (type) params.set("type", type);
+      else params.delete("type");
+
+      if (debouncedMinPrice) params.set("min_price", debouncedMinPrice);
+      else params.delete("min_price");
+
+      if (debouncedMaxPrice) params.set("max_price", debouncedMaxPrice);
+      else params.delete("max_price");
+
+      if (bedrooms) params.set("bedrooms", bedrooms);
+      else params.delete("bedrooms");
+
+      if (sort && sort !== "newest") params.set("sort", sort);
+      else params.delete("sort");
+
+      return params;
+    });
   }, [
     debouncedSearch,
     purpose,

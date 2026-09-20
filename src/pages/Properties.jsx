@@ -72,7 +72,7 @@ const Properties = () => {
                 setSearch(event.target.value)
               }
               placeholder="Search by city or area..."
-              className="h-10 w-full bg-transparent text-sm text-[var(--foreground)] outline-none placeholder:text-[var(--muted)]"
+              className="h-9 w-full bg-transparent text-xs text-[var(--foreground)] outline-none placeholder:text-[var(--muted)]"
             />
           </div>
 
@@ -85,7 +85,7 @@ const Properties = () => {
               onChange={(event) =>
                 setPurpose(event.target.value)
               }
-              className="h-10 rounded-xl border border-[var(--border)] bg-[var(--card)] px-3 text-sm text-[var(--foreground)] outline-none"
+              className="h-9 rounded-xl border border-[var(--border)] bg-[var(--card)] px-3 text-xs text-[var(--foreground)] outline-none"
             >
               <option value="">Buy or Rent</option>
               <option value="Buy">Buy</option>
@@ -98,7 +98,7 @@ const Properties = () => {
               onChange={(event) =>
                 setType(event.target.value)
               }
-              className="h-10 rounded-xl border border-[var(--border)] bg-[var(--card)] px-3 text-sm text-[var(--foreground)] outline-none"
+              className="h-9 rounded-xl border border-[var(--border)] bg-[var(--card)] px-3 text-xs text-[var(--foreground)] outline-none"
             >
               <option value="">All Types</option>
               <option value="Apartment">Apartment</option>
@@ -113,7 +113,7 @@ const Properties = () => {
               onChange={(event) =>
                 setBedrooms(event.target.value)
               }
-              className="h-10 rounded-xl border border-[var(--border)] bg-[var(--card)] px-3 text-sm text-[var(--foreground)] outline-none"
+              className="h-9 rounded-xl border border-[var(--border)] bg-[var(--card)] px-3 text-xs text-[var(--foreground)] outline-none"
             >
               <option value="">Any Bedrooms</option>
               <option value="1">1+ Bedroom</option>
@@ -131,7 +131,7 @@ const Properties = () => {
                 setMinPrice(event.target.value)
               }
               placeholder="Min price"
-              className="h-10 rounded-xl border border-[var(--border)] bg-[var(--card)] px-3 text-sm text-[var(--foreground)] outline-none placeholder:text-[var(--muted)]"
+              className="h-9 rounded-xl border border-[var(--border)] bg-[var(--card)] px-3 text-xs text-[var(--foreground)] outline-none placeholder:text-[var(--muted)]"
             />
 
             {/* Maximum Price */}
@@ -142,7 +142,7 @@ const Properties = () => {
                 setMaxPrice(event.target.value)
               }
               placeholder="Max price"
-              className="h-10 rounded-xl border border-[var(--border)] bg-[var(--card)] px-3 text-sm text-[var(--foreground)] outline-none placeholder:text-[var(--muted)]"
+              className="h-9 rounded-xl border border-[var(--border)] bg-[var(--card)] px-3 text-xs text-[var(--foreground)] outline-none placeholder:text-[var(--muted)]"
             />
 
             {/* Sort (Moved here to be parallel to Max Price) */}
@@ -151,7 +151,7 @@ const Properties = () => {
               onChange={(event) =>
                 setSort(event.target.value)
               }
-              className="h-10 rounded-xl border border-[var(--border)] bg-[var(--card)] px-3 text-sm text-[var(--foreground)] outline-none"
+              className="h-9 rounded-xl border border-[var(--border)] bg-[var(--card)] px-3 text-xs text-[var(--foreground)] outline-none"
             >
               <option value="newest">Newest</option>
               <option value="price_low">
