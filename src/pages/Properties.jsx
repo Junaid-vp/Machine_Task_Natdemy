@@ -5,11 +5,6 @@ import PropertyCardSkeletons from "../components/property/PropertyCardSkeletons"
 import { usePropertyFilters } from "../hooks/usePropertyFilters";
 
 const Properties = () => {
-  // Always start at the top of the page
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-
   // Fake loading delay to demonstrate skeleton loaders
   const [isLoading, setIsLoading] = useState(true);
 
