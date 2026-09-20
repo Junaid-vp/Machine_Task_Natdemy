@@ -1,28 +1,66 @@
 import { useState } from "react";
 import { X, ChevronLeft, ChevronRight, Images } from "lucide-react";
 
-// Extracted Lightbox component for cleaner logic
+
 const Lightbox = ({ photos, activeIndex, setActiveIndex, title }) => {
   const [touchStart, setTouchStart] = useState(null);
   const [touchEnd, setTouchEnd] = useState(null);
 
   if (activeIndex === null) return null;
 
-  const handleNext = (e) => {
-    e?.stopPropagation();
-    setActiveIndex((p) => (p === photos.length - 1 ? 0 : p + 1));
+  const handleNext = (event) => {
+    // Prevent click from closing the lightbox
+    if (event) {
+      event.stopPropagation();
+    }
+
+    setActiveIndex((currentIndex) => {
+      const isLastPhoto = currentIndex === photos.length - 1;
+      
+      if (isLastPhoto) {
+        return 0; // Go back to the first photo
+      } else {
+        return currentIndex + 1; // Go to the next photo
+      }
+    });
   };
 
-  const handlePrev = (e) => {
-    e?.stopPropagation();
-    setActiveIndex((p) => (p === 0 ? photos.length - 1 : p - 1));
+  const handlePrev = (event) => {
+    // Prevent click from closing the lightbox
+    if (event) {
+      event.stopPropagation();
+    }
+
+    setActiveIndex((currentIndex) => {
+      const isFirstPhoto = currentIndex === 0;
+      
+      if (isFirstPhoto) {
+        return photos.length - 1; // Go to the very last photo
+      } else {
+        return currentIndex - 1; // Go to the previous photo
+      }
+    });
   };
 
   const handleTouchEnd = () => {
-    if (!touchStart || !touchEnd) return;
-    const distance = touchStart - touchEnd;
-    if (distance > 50) handleNext();
-    if (distance < -50) handlePrev();
+    // If the user just tapped without swiping, do nothing
+    if (!touchStart || !touchEnd) {
+      return;
+    }
+
+    // Calculate how far the user swiped
+    const swipeDistance = touchStart - touchEnd;
+    const minimumSwipeDistance = 50;
+
+    // Swiped left (Next)
+    if (swipeDistance > minimumSwipeDistance) {
+      handleNext();
+    }
+    
+    // Swiped right (Previous)
+    if (swipeDistance < -minimumSwipeDistance) {
+      handlePrev();
+    }
   };
 
   return (

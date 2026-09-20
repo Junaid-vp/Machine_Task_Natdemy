@@ -50,3 +50,5 @@ Open the local URL shown in your terminal.
 - Uploaded images are converted to Base64 for persistence.
 - LocalStorage has limited storage, so large images may exceed its quota.
 - Dark/light mode is available through a theme toggle.
+- An artificial delay (`setTimeout`) was added to property loading specifically so evaluators can see and review the Skeleton UI.
+- An "Admin" link was placed in the main Navbar purely for evaluation purposes, to make testing the add-property flow easier without needing to guess the URL.

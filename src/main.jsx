@@ -5,7 +5,6 @@ import { PropertyProvider } from "./context/PropertyContext";
 
 import router from "./routes/router";
 import "./index.css";
-import App from "./App";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>

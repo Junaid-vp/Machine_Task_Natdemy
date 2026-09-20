@@ -69,3 +69,15 @@ input[type="number"] {
   appearance: textfield;
 }
 
+/* Social Buttons Hover Fix */
+.social-btn {
+  color: var(--foreground);
+  border-color: var(--border);
+  transition: all 0.2s ease;
+}
+.social-btn:hover {
+  background-color: var(--foreground);
+  color: var(--background);
+}
+
+

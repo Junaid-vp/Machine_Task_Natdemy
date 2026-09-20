@@ -20,6 +20,9 @@ const Properties = () => {
     }, 600);
     return () => clearTimeout(timer);
   }, []);
+
+  const [showMobileFilters, setShowMobileFilters] = useState(false);
+  const [visibleCount, setVisibleCount] = useState(6);
   const {
     filters: { search, purpose, type, minPrice, maxPrice, bedrooms, sort },
     setters: {
@@ -56,28 +59,41 @@ const Properties = () => {
         </div>
 
         {/* Filter Box */}
-        <div className="w-full rounded-2xl border border-[var(--border)] bg-[var(--card)] p-4">
+        <div className="w-full rounded-2xl border border-[var(--border)] bg-[var(--card)] p-3 sm:p-4">
           
-          {/* Search */}
-          <div className="mb-3 flex items-center gap-2 rounded-xl border border-[var(--border)] px-3">
-            <Search
-              size={16}
-              className="shrink-0 text-[var(--muted)]"
-            />
+          {/* Search & Mobile Toggle Container */}
+          <div className={`${showMobileFilters ? "mb-3" : "mb-1 sm:mb-3"} flex flex-col gap-3 md:flex-row`}>
+            {/* Search */}
+            <div className="flex flex-1 items-center gap-2 rounded-xl border border-[var(--border)] px-3">
+              <Search
+                size={16}
+                className="shrink-0 text-[var(--muted)]"
+              />
 
-            <input
-              type="text"
-              value={search}
-              onChange={(event) =>
-                setSearch(event.target.value)
-              }
-              placeholder="Search by city or area..."
-              className="h-9 w-full bg-transparent text-xs text-[var(--foreground)] outline-none placeholder:text-[var(--muted)]"
-            />
+              <input
+                type="text"
+                value={search}
+                onChange={(event) =>
+                  setSearch(event.target.value)
+                }
+                placeholder="Search by city or area..."
+                className="h-9 w-full bg-transparent text-xs text-[var(--foreground)] outline-none placeholder:text-[var(--muted)]"
+              />
+            </div>
+
+            {/* Mobile Filter Toggle */}
+            <button
+              type="button"
+              onClick={() => setShowMobileFilters(!showMobileFilters)}
+              className="flex h-9 items-center justify-center gap-2 rounded-xl border border-[var(--border)] bg-[var(--background)] px-4 text-xs font-medium text-[var(--foreground)] transition-colors hover:bg-[var(--muted)]/10 md:hidden"
+            >
+              <SlidersHorizontal size={14} />
+              {showMobileFilters ? "Hide Filters" : "Filters"}
+            </button>
           </div>
 
           {/* Filter Controls Grid */}
-          <div className="grid gap-2 sm:grid-cols-2 md:grid-cols-3">
+          <div className={`${showMobileFilters ? "grid" : "hidden"} md:grid gap-2 sm:grid-cols-2 md:grid-cols-3`}>
 
             {/* Purpose */}
             <select
@@ -164,7 +180,7 @@ const Properties = () => {
           </div>
 
           {/* Bottom Row */}
-          <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <div className={`${showMobileFilters ? "mt-4" : "mt-3 sm:mt-4"} flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between`}>
             
             {/* Properties Found Count */}
             <div className="flex items-center gap-2 text-xs text-[var(--muted)]">
@@ -197,14 +213,29 @@ const Properties = () => {
           {isLoading ? (
             <PropertyCardSkeletons count={6} />
           ) : filteredProperties.length > 0 ? (
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {filteredProperties.map((property) => (
-                <PropertyCard
-                  key={property.id}
-                  property={property}
-                />
-              ))}
-            </div>
+            <>
+              <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                {(hasFilters ? filteredProperties : filteredProperties.slice(0, visibleCount)).map((property) => (
+                  <PropertyCard
+                    key={property.id}
+                    property={property}
+                  />
+                ))}
+              </div>
+              
+              {/* Show More Button */}
+              {!hasFilters && visibleCount < filteredProperties.length && (
+                <div className="mt-10 flex justify-center">
+                  <button
+                    type="button"
+                    onClick={() => setVisibleCount(prev => prev + 6)}
+                    className="rounded-xl border border-[var(--border)] bg-[var(--card)] px-6 py-3 text-sm font-semibold text-[var(--foreground)] shadow-sm transition-all hover:bg-[var(--muted)]/10 active:scale-95"
+                  >
+                    Show More Properties
+                  </button>
+                </div>
+              )}
+            </>
           ) : (
             /* Empty State */
             <div className="rounded-2xl border border-[var(--border)] px-6 py-20 text-center">

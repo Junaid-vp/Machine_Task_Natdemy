@@ -55,29 +55,39 @@ const Navbar = () => {
           </NavLink>
         </div>
 
-        <div className="hidden md:flex">
+        <div className="hidden items-center gap-2 md:flex">
+          <span className="text-xs font-medium text-[var(--muted)]">Theme</span>
+          {/* Theme Toggle (Desktop) */}
           <button
             type="button"
             onClick={toggleTheme}
-            aria-label={
-              isDarkMode ? "Switch to light mode" : "Switch to dark mode"
-            }
-            className="flex h-10 w-10 items-center justify-center rounded-full text-[var(--foreground)] transition-colors hover:bg-black/5 dark:hover:bg-white/10"
+            aria-label="Toggle theme"
+            className="relative flex h-6 w-11 shrink-0 cursor-pointer items-center rounded-full border border-[var(--border)] bg-[var(--muted)]/10 transition-colors duration-300 ease-in-out hover:border-[var(--foreground)]/30"
           >
-            {isDarkMode ? <Sun size={19} /> : <Moon size={19} />}
+            <span
+              className={`inline-block h-4 w-4 transform rounded-full bg-[var(--foreground)] shadow-sm transition duration-300 ease-in-out ${
+                isDarkMode ? "translate-x-[22px]" : "translate-x-[4px]"
+              }`}
+            />
           </button>
         </div>
 
-        <div className="flex items-center gap-1 md:hidden">
+        <div className="flex items-center gap-1 sm:gap-2 md:hidden">
+          <span className="mr-1 text-[10px] font-semibold uppercase tracking-wider text-[var(--muted)] sm:text-xs">
+            Theme
+          </span>
+          {/* Theme Toggle (Mobile) */}
           <button
             type="button"
             onClick={toggleTheme}
-            aria-label={
-              isDarkMode ? "Switch to light mode" : "Switch to dark mode"
-            }
-            className="flex h-10 w-10 items-center justify-center rounded-full text-[var(--foreground)] transition-colors hover:bg-black/5 dark:hover:bg-white/10"
+            aria-label="Toggle theme"
+            className="relative mr-2 flex h-6 w-11 shrink-0 cursor-pointer items-center rounded-full border border-[var(--border)] bg-[var(--muted)]/10 transition-colors duration-300 ease-in-out hover:border-[var(--foreground)]/30"
           >
-            {isDarkMode ? <Sun size={19} /> : <Moon size={19} />}
+            <span
+              className={`inline-block h-4 w-4 transform rounded-full bg-[var(--foreground)] shadow-sm transition duration-300 ease-in-out ${
+                isDarkMode ? "translate-x-[22px]" : "translate-x-[4px]"
+              }`}
+            />
           </button>
 
           <button
