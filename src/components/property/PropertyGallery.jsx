@@ -111,7 +111,7 @@ const Lightbox = ({ photos, activeIndex, setActiveIndex, title }) => {
         fetchPriority="high"
         decoding="async"
         onClick={(e) => e.stopPropagation()}
-        className="max-h-[80vh] max-w-full rounded-lg object-contain"
+        className="h-[85vh] w-[90vw] object-contain rounded-lg"
       />
     </div>
   );
