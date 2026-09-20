@@ -131,11 +131,13 @@ const PropertyGallery = ({ photos = [], title = "Property" }) => {
 
   return (
     <>
-      <div className="relative grid h-[300px] min-h-0 grid-cols-1 gap-3 overflow-hidden rounded-2xl sm:h-[400px] md:grid-cols-4 lg:h-full">
+      <div className="relative grid h-[300px] min-h-0 grid-cols-1 gap-3 overflow-hidden rounded-2xl sm:h-[400px] md:grid-cols-4 lg:h-[500px]">
         {/* Main Image */}
         <button
           onClick={() => setActiveIndex(0)}
-          className="group relative col-span-1 overflow-hidden text-left md:col-span-2 md:row-span-2"
+          className={`group relative overflow-hidden text-left col-span-1 ${
+            photos.length === 1 ? "md:col-span-4" : "md:col-span-2"
+          } md:row-span-2`}
         >
           <img
             src={photos[0]?.url}
@@ -148,21 +150,35 @@ const PropertyGallery = ({ photos = [], title = "Property" }) => {
         </button>
 
         {/* Thumbnails */}
-        {photos.slice(1, 5).map((photo, index) => (
-          <button
-            key={photo.url || index}
-            onClick={() => setActiveIndex(index + 1)}
-            className="group relative hidden overflow-hidden text-left md:block"
-          >
-            <img
-              src={photo.url}
-              alt={`${title} - Image ${index + 2}`}
-              loading="lazy"
-              decoding="async"
-              className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-            />
-          </button>
-        ))}
+        {photos.slice(1, 5).map((photo, index) => {
+          // Dynamic classes based on total photo count to prevent empty spaces
+          let thumbClass = "md:col-span-1 md:row-span-1"; // default for 5+ photos
+          
+          if (photos.length === 2) {
+            thumbClass = "md:col-span-2 md:row-span-2"; // Single thumbnail takes right half
+          } else if (photos.length === 3) {
+            thumbClass = "md:col-span-2 md:row-span-1"; // Two thumbnails split the right half horizontally
+          } else if (photos.length === 4) {
+            // Three thumbnails: first two take top right, third takes bottom right full width
+            thumbClass = index === 2 ? "md:col-span-2 md:row-span-1" : "md:col-span-1 md:row-span-1";
+          }
+
+          return (
+            <button
+              key={photo.url || index}
+              onClick={() => setActiveIndex(index + 1)}
+              className={`group relative hidden overflow-hidden text-left md:block ${thumbClass}`}
+            >
+              <img
+                src={photo.url}
+                alt={`${title} - Image ${index + 2}`}
+                loading="lazy"
+                decoding="async"
+                className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+              />
+            </button>
+          );
+        })}
 
         {/* View All Photos */}
         {photos.length > 1 && (
